@@ -40,6 +40,10 @@ body {
 		var gameOver;
         var score = 0;
 		var scoreText;
+        var secondEnemy;
+        var secondEnemyLaunchTimer;
+        
+        
         
 		function preload() {
 			//  We need this because the assets are on github pages
@@ -54,7 +58,7 @@ body {
 			game.load.image('enemy2', 'assets/enemies/enemy2.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
 			game.load.bitmapFont('spacefont', '/assets/spacefont/spacefont1.png', '/assets/spacefont/spacefont1.xml');
-			
+			game.load.image('enemy3', '/assets/enemies/enemy3.png');
 		}
 		
 	
@@ -128,11 +132,11 @@ body {
             
             
                 //  Shields stat
-    shields = game.add.bitmapText(game.world.width - 250, 10, 'spacefont', '' + player.health +'%', 50);
+    shields = game.add.bitmapText(game.world.width - 250, 10, 'spacefont', '' + player.health +'%', 20);
    shields.render = function () {
-       shields.text = 'Shields: ' + Math.max(player.health, 0) +'%';
+       shields.text = 'Shields: ' + Math.max(player.health, 0)+'%';
     };
-      shields.render();      
+    shields.render();        
             
             
             
@@ -170,10 +174,34 @@ body {
                 
                 
    				game.time.events.add(1000, launchfirstEnemy);
+                
+                
+                
+    secondEnemy = game.add.group();
+    secondEnemy.enableBody = true;
+    secondEnemy.physicsBodyType = Phaser.Physics.ARCADE;
+    secondEnemy.createMultiple(30, 'enemy3');
+    secondEnemy.setAll('anchor.x', 0.5);
+    secondEnemy.setAll('anchor.y', 0.5);
+    secondEnemy.setAll('scale.x', 0.5);
+    secondEnemy.setAll('scale.y', 0.5);
+    secondEnemy.setAll('angle', 180);
+    secondEnemy.forEach(function(enemy){
+        enemy.damageAmount = 40;
+    });
+
+    game.time.events.add(1000, launchsecondEnemy);
+                
+                
+                
+                
+                
+                
+                
 			
 		
         //  Score
-    scoreText = game.add.bitmapText(10, 10, 'spacefont', '', 50);
+    scoreText = game.add.bitmapText(10, 10, 'spacefont', '', 20);
     scoreText.render = function () {
         scoreText.text = 'Score: ' + score;
     };
@@ -184,7 +212,7 @@ body {
 			    //  Game over text
     gameOver = game.add.bitmapText(game.world.centerX, game.world.centerY, 'spacefont', 'GAME OVER!', 110);
     gameOver.x = gameOver.x - gameOver.textWidth / 2;
-    gameOver.y = gameOver.y - gameOver.textHeight / 3;		
+    gameOver.y = gameOver.y - gameOver.textHeight / 3;
     gameOver.visible = false;
 			
 			
@@ -236,6 +264,8 @@ body {
     game.physics.arcade.overlap(player, firstEnemy, shipCollide, null, this);
 	game.physics.arcade.overlap(firstEnemy, bullets, hitEnemy, null, this);
     
+    game.physics.arcade.overlap(player, secondEnemy, shipCollide, null, this);
+    game.physics.arcade.overlap(bullets, secondEnemy, hitEnemy, null, this);
     
     
     
@@ -389,23 +419,73 @@ body {
     enemyTrail.setScale(0.01, 0.1, 0.01, 0.1, 1000, Phaser.Easing.Quintic.Out);
     enemy.trail = enemyTrail;
 }   
+
+
+
+function launchsecondEnemy() {
+    var startingY = (game.width - 10, game.rnd.integerInRange(100, game.height - 100));
+    var HorizontalSpeed = -180;
+    var spread = 60;
+    var frequency = 70;
+    var HorizontalSpacing = 70;
+    var numEnemiesInWave = 5;
+    var timeBetweenWaves = 7000;
+
+    //  Launch wave
+    for (var i =0; i < numEnemiesInWave; i++) {
+        var enemy = secondEnemy.getFirstExists(false);
+        if (enemy) {
+            enemy.startingY = startingY;
+            enemy.reset(game.width  +HorizontalSpacing * i, game.rnd.integerInRange(20, game.height - 20));
+            enemy.body.velocity.x = HorizontalSpeed;
+
+            //  Update function for each enemy
+            enemy.update = function(){
+              //  Wave movement
+              this.body.y = this.startingY + Math.sin((this.x) / frequency) * spread;
+
+              //  Squish and rotate ship for illusion of "banking"
+              bank = Math.cos((this.x + 60) / frequency)
+              this.scale.y = 0.5 - Math.abs(bank) / 8;
+              this.angle = 0 - bank * 2;
+
+              //  Kill enemies once they go off screen
+              if (this.x < -game.width + 200) {
+                this.kill();
+              }
+            };
+        }
+    }
+
+    //  Send another wave soon
+    secondEnemyLaunchTimer = game.time.events.add(timeBetweenWaves, launchsecondEnemy);
+}
+
+
+
+
+
+
+
+
+
+
 		
         function restart () {
     //  Reset the enemies
     firstEnemy.callAll('kill');
     game.time.events.remove(firstEnemyLaunchTimer);
     game.time.events.add(1000, launchfirstEnemy);
-
+    secondEnemy.callAll('kill');
+    game.time.events.remove(secondEnemyLaunchTimer);
     //  Revive the player
     player.revive();
     player.health = 100;
     shields.render();
     score = 0;
     scoreText.render();
-
     //  Hide the text
     gameOver.visible = false;
-
 }
 		
 	</script>
