@@ -54,6 +54,7 @@ body {
 			game.load.crossOrigin = 'anonymous';
 			
 			game.load.image('starfield', 'assets/starfield.png');
+			game.load.image('starfield3', 'assets/starfield3.png');
 			game.load.image('ship', 'assets/ship.png');
 			game.load.image('bullet', 'assets/bullets/bullet.png');
 			game.load.audio('LaserBlaster',['assets/sounds/laser.mp3','assets/sounds/laser.ogg']);
@@ -78,8 +79,9 @@ body {
 			
 			//  The scrolling starfield background
 			starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
-			
-			
+			if (score > 500){
+			starfield = game.loadTexture('starfield3');
+			}
 			
 			
 			//  Our bullet group
