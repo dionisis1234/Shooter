@@ -17,10 +17,10 @@ body {
 <body>
 	<script type="text/javascript">
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
-			preload : preload,
-			create : create,
-			update : update,
-			render : render
+			//preload : preload,
+			//create : create,
+			//update : update,
+			//render : render
 		});
 		var player;
 		var starfield;
@@ -75,8 +75,7 @@ body {
 		
 		
 		
-		function render() {
-		}
+		
 		function fireBullet() {
 			//  To avoid them being allowed to fire too fast we set a time limit
 			if (game.time.now > bulletTimer) {
