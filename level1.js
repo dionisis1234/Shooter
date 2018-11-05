@@ -1,7 +1,7 @@
 
 var level1= { 
   
-  		function preload() {
+  		function:preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
 			
@@ -20,7 +20,7 @@ var level1= {
 		}
     
     
-    function create() {
+    function:create() {
 			LaserBlaster1 = game.add.audio('LaserBlaster',0.8);
 			game.scale.pageAlignHorizontally = true;
 			
@@ -196,7 +196,7 @@ var level1= {
 			
 		}
       
-      function update() {
+      function:update() {
 			//  Scroll the background
 			starfield.tilePosition.x -= 2;
 			//  Reset the player, then check for movement keys
