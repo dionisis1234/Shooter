@@ -17,7 +17,7 @@ var level1= {
             game.load.image('secondEnemyBullet', '/assets/bullets/blue-enemy-bullet.png');
             
             
-		}
+		},
     
     
     function:create() {
@@ -194,7 +194,7 @@ var level1= {
 			
 			
 			
-		}
+		},
       
       function:update() {
 			//  Scroll the background
@@ -265,7 +265,7 @@ var level1= {
             }
         }
     }
-  }
+  },
       
       render:function() {
 
