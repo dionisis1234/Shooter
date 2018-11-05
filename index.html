@@ -10,8 +10,9 @@ body {
 	background-color: #000;
 }
 </style>
-<script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"
+<script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"
 	type="text/javascript"></script>
+    <script src="https://github.com/dionisis1234/Shooter/blob/gh-pages/level1.js"></script>
 </head>
 <body>
 	<script type="text/javascript">
@@ -186,9 +187,6 @@ body {
     enemyTrail.setScale(0.01, 0.1, 0.01, 0.1, 1000, Phaser.Easing.Quintic.Out);
     enemy.trail = enemyTrail;
 }   
-
-
-
 function launchsecondEnemy() {
     var startingY = (game.width-10, game.rnd.integerInRange(100, game.height - 100));
     var HorizontalSpeed = -180;
@@ -197,7 +195,6 @@ function launchsecondEnemy() {
     var HorizontalSpacing = 70;
     var numEnemiesInWave = 5;
     var timeBetweenWaves = 7000;
-
     //  Launch wave
     for (var i =0; i < numEnemiesInWave; i++) {
         var enemy = secondEnemy.getFirstExists(false);
@@ -214,11 +211,11 @@ function launchsecondEnemy() {
             enemy.lastShot = 0;
             
             
+            
             //  Update function for each enemy
             enemy.update = function(){
               //  Wave movement
               this.body.y = this.startingY + Math.sin((this.x) / frequency) * spread;
-
               //  Squish and rotate ship for illusion of "banking"
               bank = Math.cos((this.x + 60) / frequency)
               this.scale.y = 0.5 - Math.abs(bank) / 8;
@@ -241,37 +238,25 @@ function launchsecondEnemy() {
                 }
               
               
-
               //  Kill enemies once they go off screen
-              if (this.x < -game.width + 200) {
+              if (this.x < -100) {
                 this.kill();
               }
             };
         }
     }
-
     //  Send another wave soon
     secondEnemyLaunchTimer = game.time.events.add(timeBetweenWaves, launchsecondEnemy);
 }
-
-
-
-
 function enemyHitsPlayer (player, bullet) {
     var explosion = explosions.getFirstExists(false);
     explosion.reset(player.body.x + player.body.halfWidth, player.body.y + player.body.halfHeight);
     explosion.alpha = 0.7;
     explosion.play('explosion', 30, false, true);
     bullet.kill();
-
     player.damage(bullet.damageAmount);
     shields.render()
 }
-
-
-
-
-
 		
         function restart () {
     //  Reset the enemies
@@ -294,3 +279,4 @@ function enemyHitsPlayer (player, bullet) {
 	</script>
 </body>
 </html>
+
