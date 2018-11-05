@@ -20,7 +20,7 @@ var level1= {
 		},
     
     
-    function:create() {
+   /* function:create() {
 			LaserBlaster1 = game.add.audio('LaserBlaster',0.8);
 			game.scale.pageAlignHorizontally = true;
 			
@@ -194,7 +194,7 @@ var level1= {
 			
 			
 			
-		},
+		},*/
       
       function:update() {
 			//  Scroll the background
