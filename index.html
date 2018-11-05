@@ -80,7 +80,9 @@ body {
 			//  The scrolling starfield background
 			starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
 			if (score > 500){
-			starfield.loadTexture('starfield3');
+				starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield3');
+			this.starfield.loadTexture('starfield3');
+				
 			}
 			
 			
