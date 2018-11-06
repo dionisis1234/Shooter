@@ -320,7 +320,8 @@ var playState ={
     
 		},
       function render() {
-		},
+		}
+};
       
       //collide with bullet
         function hitEnemy(enemy, bullet) {
