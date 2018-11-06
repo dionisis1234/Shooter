@@ -167,7 +167,7 @@ body {
     			firstEnemy = game.add.group();
    				firstEnemy.enableBody = true;
     			firstEnemy.physicsBodyType = Phaser.Physics.ARCADE;
-    			firstEnemy.createMultiple(50, 'enemy2');
+    			firstEnemy.createMultiple(15, 'enemy2');
     			firstEnemy.setAll('anchor.x', 0.5);
     			firstEnemy.setAll('anchor.y', 0.5);
     			firstEnemy.setAll('scale.x', 0.5);
@@ -200,7 +200,7 @@ body {
     secondEnemyBullets = game.add.group();
     secondEnemyBullets.enableBody = true;
     secondEnemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-    secondEnemyBullets.createMultiple(30, 'secondEnemyBullet');
+    secondEnemyBullets.createMultiple(15, 'secondEnemyBullet');
     secondEnemyBullets.callAll('crop', null, {x: 90, y: 0, width: 90, height: 70});
     secondEnemyBullets.setAll('alpha', 0.9);
     secondEnemyBullets.setAll('anchor.x', 0.5);
@@ -263,7 +263,7 @@ body {
 			//  Scroll the background
 			starfield.tilePosition.x -= 2;
             
-            if (score > 500){
+            if (score > 5000){
 		      starfield.loadTexture('starfield3');
 		
 				
@@ -426,7 +426,7 @@ body {
     enemy.kill();
     bullet.kill();
     // Increase score
-   score += enemy.damageAmount * 10;
+   score += 20 * 10;
     scoreText.render();
 
     //  Pacing
@@ -442,7 +442,7 @@ body {
     }
     
     //  Weapon upgrade
-    if (score > 400 && player.weaponLevel < 2) {
+    if (score > 4000 && player.weaponLevel < 2) {
       player.weaponLevel = 2;
     }
 
@@ -506,7 +506,7 @@ body {
       enemy.trail.x = enemy.x;
           enemy.trail.y = enemy.y -10;
           //  Kill enemies once they go off screen
-          if (enemy.y > game.height + 200) {
+          if (enemy.x <  -50) {
             enemy.kill();
           }
        
@@ -586,7 +586,7 @@ function launchsecondEnemy() {
               
 
               //  Kill enemies once they go off screen
-              if (this.x < -game.width + 200) {
+              if (this.x < -50) {
                 this.kill();
               }
             };
