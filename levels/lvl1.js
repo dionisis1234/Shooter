@@ -41,7 +41,7 @@ var playState ={
   
   
   
-  function create() {
+  function:create() {
 			LaserBlaster1 = game.add.audio('LaserBlaster',0.8);
 			game.scale.pageAlignHorizontally = true;
 			
@@ -228,7 +228,7 @@ var playState ={
 			
 		},
       
-      function update() {
+      function:update() {
 			//  Scroll the background
 			starfield.tilePosition.x -= 2;
             
@@ -319,7 +319,7 @@ var playState ={
     
     
 		},
-      function render() {
+      function:render() {
 		}
 };
       
