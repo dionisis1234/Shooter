@@ -629,7 +629,7 @@ function enemyHitsPlayer (player, bullet) {
         function restart () {
     //  Reset the enemies
     firstEnemy.callAll('kill');
-    secondEnemies.callAll('kill');
+   
     game.time.events.remove(firstEnemyLaunchTimer);
     game.time.events.add(1000, launchfirstEnemy);
     secondEnemy.callAll('kill');
