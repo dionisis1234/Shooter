@@ -88,10 +88,10 @@ body {
 		function create() {
 			LaserBlaster1 = game.add.audio('LaserBlaster',0.8);
 			game.scale.pageAlignHorizontally = true;
-			LaserEnemy = game.add.audio('LaserMachine',0.8);
+			LaserEnemy = game.add.audio('LaserMachine',0.4);
 			ExplosionShip= game.add.audio('ExplosionShip',0.8);
-			ExplosionEnemy = game.add.audio('ExplosionEnemy',0.8);
-			BackroundMusic = game.add.audio('starfox',0.9);
+			ExplosionEnemy = game.add.audio('ExplosionEnemy',0.3);
+			BackroundMusic = game.add.audio('starfox',0.3);
 			
 			
 			
@@ -494,6 +494,7 @@ body {
 	 
         explosion.play('explosion', 30, false, true);
     } else {
+   		 ExplosionEnemy.play();
         playerDeath.x = player.x;
         playerDeath.y = player.y;
         playerDeath.start(false, 1000, 10, 10);
@@ -608,6 +609,7 @@ function launchsecondEnemy() {
                     enemyBullet.damageAmount = this.damageAmount;
                     var angle = game.physics.arcade.moveToObject(enemyBullet, player, bulletSpeed);
                     enemyBullet.angle = game.math.radToDeg(angle);
+                    LaserEnemy.play();
                 }
               
               
@@ -641,6 +643,7 @@ function enemyHitsPlayer (player, bullet) {
         explosion.alpha = 0.7;
         explosion.play('explosion', 30, false, true);
     } else {
+    	ExplosionEnemy.play();
         playerDeath.x = player.x;
         playerDeath.y = player.y;
         playerDeath.start(false, 1000, 10, 10);
